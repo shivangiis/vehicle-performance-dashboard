@@ -109,18 +109,18 @@ public class SensorController {
             if (origin.equals("http://localhost:5500") || origin.equals("http://127.0.0.1:5500")) {
                 exchange.getResponseHeaders().add("Access-Control-Allow-Origin", origin);
             } else {
-                // Or allow all origins if needed: exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+               
                 exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
             }
         }
 
-        // Allow methods you want to support, like GET, POST, etc.
+        
         exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 
-        // Allow specific headers
+       
         exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
 
-        // If pre-flight request (OPTIONS), respond with a 200 OK
+      
         if ("OPTIONS".equals(exchange.getRequestMethod())) {
             exchange.sendResponseHeaders(200, -1);
         }

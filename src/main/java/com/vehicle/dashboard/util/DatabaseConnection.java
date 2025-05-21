@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:postgresql://localhost:5432/vehicle_dashboard"; // PostgreSQL ka default port 5432 hota hai
+    private static final String URL = "jdbc:postgresql://localhost:5432/vehicle_dashboard"; 
     private static final String USER = "postgres";  // PostgreSQL username
     private static final String PASSWORD = "root";  // PostgreSQL password
     private static final String JDBC_DRIVER = "org.postgresql.Driver"; // PostgreSQL JDBC driver
@@ -16,7 +16,7 @@ public class DatabaseConnection {
     public static Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             try {
-                // Load the JDBC driver (optional in modern JDBC)
+                
                 Class.forName(JDBC_DRIVER);
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 //initializeDatabase();

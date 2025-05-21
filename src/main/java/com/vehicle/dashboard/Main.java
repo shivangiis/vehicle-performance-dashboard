@@ -50,7 +50,7 @@ public class Main {
         Random random = new Random();
         LocalDateTime now = LocalDateTime.now();
         
-        // Generate 100 random readings over the past hour
+        
         for (int i = 0; i < 100; i++) {
             String vehicleId = vehicleIds[random.nextInt(vehicleIds.length)];
             String sensorType = sensorTypes[random.nextInt(sensorTypes.length)];
@@ -61,35 +61,35 @@ public class Main {
             
             switch (sensorType) {
                 case "TEMP":
-                    value = 60 + random.nextDouble() * 40; // 60-100°C
+                    value = 60 + random.nextDouble() * 40; 
                     unit = "°C";
                     break;
                 case "PRES":
-                    value = 20 + random.nextDouble() * 80; // 20-100 PSI
+                    value = 20 + random.nextDouble() * 80; 
                     unit = "PSI";
                     break;
                 case "FUEL":
-                    value = random.nextDouble() * 100; // 0-100%
+                    value = random.nextDouble() * 100; 
                     unit = "%";
                     break;
                 case "BATT":
-                    value = 11 + random.nextDouble() * 3; // 11-14V
+                    value = 11 + random.nextDouble() * 3; 
                     unit = "V";
                     break;
                 case "SPEED":
-                    value = random.nextDouble() * 120; // 0-120 km/h
+                    value = random.nextDouble() * 120; 
                     unit = "km/h";
                     break;
                 case "RPM":
-                    value = random.nextDouble() * 8000; // 0-8000 RPM
+                    value = random.nextDouble() * 8000; 
                     unit = "RPM";
                     break;
                 case "O2":
-                    value = random.nextDouble() * 100; // 0-100%
+                    value = random.nextDouble() * 100; 
                     unit = "%";
                     break;
                 case "THROTTLE":
-                    value = random.nextDouble() * 100; // 0-100%
+                    value = random.nextDouble() * 100; 
                     unit = "%";
                     break;
                 default:
@@ -97,7 +97,7 @@ public class Main {
                     unit = "units";
             }
             
-            // Create timestamp within the past hour
+            
             LocalDateTime timestamp = now.minusMinutes(random.nextInt(60));
             
             SensorReading reading = new SensorReading();
@@ -146,35 +146,35 @@ public class Main {
         
         switch (sensorType) {
             case "TEMP":
-                value = 60 + random.nextDouble() * 40; // 60-100°C
+                value = 60 + random.nextDouble() * 40; 
                 unit = "°C";
                 break;
             case "PRES":
-                value = 20 + random.nextDouble() * 80; // 20-100 PSI
+                value = 20 + random.nextDouble() * 80; 
                 unit = "PSI";
                 break;
             case "FUEL":
-                value = random.nextDouble() * 100; // 0-100%
+                value = random.nextDouble() * 100; 
                 unit = "%";
                 break;
             case "BATT":
-                value = 11 + random.nextDouble() * 3; // 11-14V
+                value = 11 + random.nextDouble() * 3; 
                 unit = "V";
                 break;
             case "SPEED":
-                value = random.nextDouble() * 120; // 0-120 km/h
+                value = random.nextDouble() * 120; 
                 unit = "km/h";
                 break;
             case "RPM":
-                value = random.nextDouble() * 8000; // 0-8000 RPM
+                value = random.nextDouble() * 8000; 
                 unit = "RPM";
                 break;
             case "O2":
-                value = random.nextDouble() * 100; // 0-100%
+                value = random.nextDouble() * 100; 
                 unit = "%";
                 break;
             case "THROTTLE":
-                value = random.nextDouble() * 100; // 0-100%
+                value = random.nextDouble() * 100; 
                 unit = "%";
                 break;
             default:

@@ -39,7 +39,7 @@ public class SensorService {
     }
 
     public void saveSensorReading(SensorReading reading) throws SQLException {
-        // Set timestamp if not provided
+       
         if (reading.getTimestamp() == null) {
             reading.setTimestamp(LocalDateTime.now());
         }
@@ -53,7 +53,7 @@ public class SensorService {
     }
 
     public void saveAllSensorReadings(List<SensorReading> readings) throws SQLException {
-        // Process readings using Java 8 streams
+        
         List<SensorReading> processedReadings = readings.stream()
             .map(reading -> {
                 // Set timestamp if not provided
@@ -100,8 +100,7 @@ public class SensorService {
     }
 
     private String determineStatus(SensorReading reading) {
-        // This is a simplified example - in a real application, you would have
-        // more sophisticated logic based on sensor type, vehicle type, etc.
+        
         String sensorId = reading.getSensorId();
         double value = reading.getValue();
         
