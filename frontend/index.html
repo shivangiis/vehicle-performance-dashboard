@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Sensor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Container -->
+    <div id="login-container" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-car-alt"></i>
+                <h1>Vehicle Performance Dashboard</h1>
+            </div>
+            <p class="login-message">Sign in to access your vehicle  data</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <span id="toggle-password" class="toggle-password">
+                            <!-- <i class="fas fa-eye"></i> -->
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" id="login-button" class="login-button">
+                    <span id="login-text">Login</span>
+                    <div id="login-spinner" class="spinner hidden"></div>
+                </button>
+            </form>
+            
+            <div class="social-login">
+                <p>Or sign in with</p>
+                <div class="social-buttons">
+                    <button class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- <div class="signup-link">
+                Don't have an account? <a href="#">Sign up</a>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div id="dashboard-container" class="container hidden">
+        <div class="main-content">
+            <header>
+                <h1>Vehicle Performance Dashboard</h1>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="logout-button" class="logout-button">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard">
+                <div class="dashboard-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p class="subtitle">Real-time vehicle sensor data monitoring</p>
+                    </div>
+                    <div class="filters">
+                        <div class="filter">
+                            <label for="time-filter">Time Range:</label>
+                            <select id="time-filter">
+                                <option>Last 24 hours</option>
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>All time</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div id="temp-card" class="metric-card">
+                        <div class="metric-header">
+                            <h3>Temperature</h3>
+                            <i class="fas fa-temperature-high"></i>
+                        </div>
+                        <div class="metric-value">-- °C</div>
+                        <div class="metric-footer">
+                            <span class="trend"><i class="fas fa-minus"></i></span>
+                            <span>No change</span>
+                        </div>
+                    </div>
+
+                    <div id="pres-card" class="metric-card">
+                        <div class="metric-header">
+                            <h3>Pressure</h3>
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div class="metric-value">-- PSI</div>
+                        <div class="metric-footer">
+                            <span class="trend"><i class="fas fa-minus"></i></span>
+                            <span>No change</span>
+                        </div>
+                    </div>
+
+                    <div id="batt-card" class="metric-card">
+                        <div class="metric-header">
+                            <h3>Battery</h3>
+                            <i class="fas fa-battery-three-quarters"></i>
+                        </div>
+                        <div class="metric-value">-- V</div>
+                        <div class="metric-footer">
+                            <span class="trend"><i class="fas fa-minus"></i></span>
+                            <span>No change</span>
+                        </div>
+                    </div>
+
+                    <div id="speed-card" class="metric-card">
+                        <div class="metric-header">
+                            <h3>Speed</h3>
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div class="metric-value">-- km/h</div>
+                        <div class="metric-footer">
+                            <span class="trend"><i class="fas fa-minus"></i></span>
+                            <span>No change</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-section">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="sensors">Sensors</button>
+                        <button class="tab-btn" data-tab="temperature">Temperature</button>
+                        <button class="tab-btn" data-tab="pressure">Pressure</button>
+                        <button class="tab-btn" data-tab="speed">Speed</button>
+                        <button class="tab-btn" data-tab="rpm">RPM</button>
+                        <button class="tab-btn" data-tab="battery">Battery</button>
+                        <button class="tab-btn" data-tab="fuel">Fuel</button>
+                    </div>
+
+                    <div id="sensors-tab" class="tab-content active">
+                        <div class="chart-grid">
+                            <div class="chart-card">
+                                <h3>Sensor Distribution</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="sensor-distribution-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="temperature-tab" class="tab-content">
+                        <div class="chart-grid">
+                            <div class="chart-card">
+                                <h3>Temperature Readings</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="temperature-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="pressure-tab" class="tab-content">
+                        <div class="chart-grid">
+                            <div class="chart-card">
+                                <h3>Pressure Readings</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="pressure-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="speed-tab" class="tab-content">
+                        <div class="chart-grid">
+                            <div class="chart-card">
+                                <h3>Speed Readings</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="speed-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="rpm-tab" class="tab-content">
+                        <div class="chart-grid">
+                            <div class="chart-card">
+                                <h3>RPM Readings</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="rpm-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="battery-tab" class="tab-content">
+                        <div class="chart-grid">
+                            <div class="chart-card">
+                                <h3>Battery Readings</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="battery-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="fuel-tab" class="tab-content">
+                        <div class="chart-grid">
+                            <div class="chart-card">
+                                <h3>Fuel Readings</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="fuel-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section id="latest-readings">
+                    <h2>Latest Readings</h2>
+                    <table id="latest-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Sensor ID</th>
+                                <th>Value</th>
+                                <th>Unit</th>
+                                <th>Timestamp</th>
+                                <th>Vehicle ID</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          
+                        </tbody>
+                    </table>
+                    <button id="refresh-latest">Refresh Data</button>
+                </section>
+
+                <section id="filter-by-vehicle">
+                    <h2>Filter by Vehicle ID</h2>
+                    <div class="filter-form">
+                        <label for="vehicle-id-filter">Vehicle ID:</label>
+                        <input type="text" id="vehicle-id-filter" placeholder="Enter vehicle ID">
+                        <button id="filter-button">Filter</button>
+                    </div>
+                    <table id="filtered-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Sensor ID</th>
+                                <th>Value</th>
+                                <th>Unit</th>
+                                <th>Timestamp</th>
+                                <th>Vehicle ID</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                        </tbody>
+                    </table>
+                </section>
+
+                <section id="add-reading">
+                    <h2>Add New Reading</h2>
+                    <form id="add-form">
+                        <label for="sensor-id">Sensor ID:</label>
+                        <input type="text" id="sensor-id" required>
+                        
+                        <label for="value">Value:</label>
+                        <input type="number" id="value" step="0.01" required>
+                        
+                        <label for="unit">Unit:</label>
+                        <input type="text" id="unit" required>
+                        
+                        <label for="vehicle-id">Vehicle ID:</label>
+                        <input type="text" id="vehicle-id" required>
+                        
+                        <label for="status">Status (optional):</label>
+                        <input type="text" id="status">
+                        
+                        <button type="submit">Add Reading</button>
+                    </form>
+                    <div id="add-message" class="message"></div>
+                </section>
+
+                <section id="analytics-dashboard">
+                    <h2>Analytics Dashboard</h2>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3>Average Temperature</h3>
+                            <div id="avg-temperature" class="value">0°C</div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Average Pressure</h3>
+                            <div id="avg-pressure" class="value">0 PSI</div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Latest Reading</h3>
+                            <div id="latest-reading" class="value">N/A</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
